@@ -1,0 +1,29 @@
+{
+  "name": "tos-order-bridge",
+  "version": "1.0.0",
+  "description": "Automated bridge for extracting, parsing TOS orders from Telegram channels, and forwarding the parsed data to another app via ZeroMQ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OleksyKor/tos-order-bridge.git"
+  },
+  "keywords": [
+    "telegram",
+    "tos",
+    "thinkorswim",
+    "trading",
+    "order-parser",
+    "zeromq",
+    "messaging",
+    "trade-automation"
+  ],
+  "author": "Oleksiy Koren",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OleksyKor/tos-order-bridge/issues"
+  },
+  "homepage": "https://github.com/OleksyKor/tos-order-bridge#readme"
+}
