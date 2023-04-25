@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/OleksyKor/tos-order-bridge#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "telegram": "^2.16.4",
     "zeromq": "^5.3.1"
   }
