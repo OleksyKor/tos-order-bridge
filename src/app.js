@@ -1,4 +1,4 @@
-import { connectTelegramClient, getTelegramClient } from "./config/telegram.config.js";
+import { connectTelegramClient, getTelegramClient } from "./utils/telegramClient.js";
 import { bindZeroMQSocket } from "./config/zeromq.config.js";
 import { registerChannelHandlers } from "./utils/channelHandlers.js";
 

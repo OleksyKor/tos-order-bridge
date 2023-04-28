@@ -1,32 +1,17 @@
 import * as dotenv from 'dotenv';
 
-import { StringSession } from "telegram/sessions/index.js";
-import { TelegramClient } from "telegram";
+// Load environment variables from the '.env' file into 'process.env'.
+dotenv.config();
 
-dotenv.config()
+const { API_ID, API_HASH, STRING_SESSION } = process.env;
 
-const tgApiConfig = {
-  apiId: process.env.API_ID,
-  apiHash: process.env.API_HASH,
-  stringSession: process.env.STRING_SESSION,
-};
+if (!API_ID || !API_HASH || !STRING_SESSION) {
+  throw new Error('API_ID, API_HASH, and STRING_SESSION must be set in the environment.');
+}
 
-const STRING_SESSION = new StringSession(tgApiConfig.stringSession);
-
-const client = new TelegramClient(STRING_SESSION, tgApiConfig.apiId, tgApiConfig.apiHash, {
+export default {
+  apiId: +API_ID,
+  apiHash: API_HASH,
+  stringSession: STRING_SESSION,
   connectionRetries: 5,
-});
-
-async function connectTelegramClient() {
-  await client.connect();
-  await client.getMe();
-}
-
-function getTelegramClient() {
-  return client;
-}
-
-export {
-  connectTelegramClient,
-  getTelegramClient,
-}
+};
