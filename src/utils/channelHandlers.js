@@ -16,6 +16,11 @@ const chatConfig = [
   // ... 
 ];
 
+/**
+ * Registers channel handlers for the Telegram client.
+ * @param {TelegramClient} client - An instance of the Telegram client.
+ * @param {ZeroMQ.Socket} sock - A ZeroMQ socket instance.
+ */
 function registerChannelHandlers(client, sock) {
   chatConfig.forEach(({ id, name, handler }) => {
     client.addEventHandler(handler(sock), new NewMessage({
