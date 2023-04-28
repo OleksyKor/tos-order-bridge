@@ -1,6 +1,6 @@
 import { connectTelegramClient, getTelegramClient } from "./utils/telegramClient.js";
 import { bindZeroMQSocket } from "./config/zeromq.config.js";
-import { registerChannelHandlers } from "./utils/channelHandlers.js";
+import { registerChannelHandlers } from "./chats/channelHandlers.js";
 
 (async function run() {
   try {

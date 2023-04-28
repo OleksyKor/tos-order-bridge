@@ -1,6 +1,6 @@
 import { NewMessage } from "telegram/events/index.js";
-import { tradeAlertsHandler } from "./chats/tradeAlerts/tradeAlertsHandler.js";
-import { investorChannelHandler } from "./chats/investor/investorChannelHandler.js";
+import { tradeAlertsHandler } from "./tradeAlerts/tradeAlertsHandler.js";
+import { investorChannelHandler } from "./investor/investorChannelHandler.js";
 
 const chatConfig = [
   {
