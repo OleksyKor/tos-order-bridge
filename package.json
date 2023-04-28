@@ -1,5 +1,6 @@
 {
   "name": "tos-order-bridge",
+  "type": "module",
   "version": "1.0.0",
   "description": "Automated bridge for extracting, parsing TOS orders from Telegram channels, and forwarding the parsed data to another app via ZeroMQ",
   "main": "src/app.js",

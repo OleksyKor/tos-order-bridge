@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 
-import { StringSession } from "telegram/sessions";
+import { StringSession } from "telegram/sessions/index.js";
 import { TelegramClient } from "telegram";
 
 dotenv.config()
@@ -26,7 +26,7 @@ function getTelegramClient() {
   return client;
 }
 
-export default {
+export {
   connectTelegramClient,
   getTelegramClient,
 }

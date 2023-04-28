@@ -1,16 +1,16 @@
-import { NewMessage } from "telegram/events";
-import { tradeAlertsHandler } from "./utils/tradeAlertsHandler";
-import { investorsChannelHandler } from "./utils/investorsChannelHandler";
+import { NewMessage } from "telegram/events/index.js";
+import { tradeAlertsHandler } from "./chats/tradeAlerts/tradeAlertsHandler.js";
+import { investorChannelHandler } from "./chats/investor/investorChannelHandler.js";
 
 const chatConfig = [
   {
     id: 1302070350n,
     name: "Investors Channel",
-    handler: investorsChannelHandler,
+    handler: investorChannelHandler,
   },
   {
     id: 1217563090n,
-    name: "Trade Alerts Channel",
+    name: "Trade alerts Channel",
     handler: tradeAlertsHandler,
   },
   // ... 
@@ -27,6 +27,6 @@ function registerChannelHandlers(client, sock) {
   });
 }
 
-export default {
+export {
     registerChannelHandlers,
 };
