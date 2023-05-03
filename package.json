@@ -6,7 +6,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "login": "node login.js",
+    "login": "node src/utils/login.js",
     "test": "test"
   },
   "repository": {

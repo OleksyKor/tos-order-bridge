@@ -1,24 +1,62 @@
-
 import { TelegramClient } from "telegram";
-import { text } from 'input';
+import { StringSession } from "telegram/sessions/index.js";
+import config from "../config/telegram.config.js";
+import readline from "readline";
 
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+async function getUserInput(prompt) {
+  return new Promise((resolve) => {
+    rl.question(prompt, (input) => {
+      resolve(input);
+    });
+  });
+}
+
+// Initialize the StringSession
+const STRING_SESSION = new StringSession("");
 
 (async function run() {
-    console.log(new Date().toLocaleString(), 'Preparing to login')
+  try {
+    console.log(`\n🚀 ${new Date().toLocaleString()} - Starting the Telegram login process`);
+    console.log('\n' + '-'.repeat(12) + '\n');
 
-    const client = new TelegramClient("", apiId, apiHash, { connectionRetries: 5 })
+    const client = new TelegramClient(
+      STRING_SESSION,
+      config.apiId,
+      config.apiHash,
+      { connectionRetries: 5 }
+    );
 
     await client.start({
-        phoneNumber: async () => await text('number ?'),
-        password: async () => await text('password ?'),
-        phoneCode: async () => await text('Code ?'),
-        onError: (err) => console.log(err),
-    }).
+      phoneNumber: async () =>
+        await getUserInput(
+          "Please enter your phone number (including country code, e.g., +1234567890): "
+        ),
+      password: async () =>
+        await getUserInput(
+          "If your account has two-step verification enabled, please enter your password: "
+        ),
+      phoneCode: async () =>
+        await getUserInput(
+          "Telegram sent a 5-digit login code to your app. Please enter the code: "
+        ),
+        onError: (err) => console.log(`\n❌ An error occurred during the login process: ${err}`),
+    });
 
-    console.log('You should now be connected.')
-    console.log('Save next string into .env file into STRING_SESSION property')
+    console.log("✅ You are now connected to Telegram.");
+    console.log("🔑 To avoid logging in again, save the following session string in the .env file under the STRING_SESSION property:");
+    console.log(client.session.save());
 
-    console.log(client.session.save()) // Save this string to avoid logging in again
-})()
-
-
+    process.exit(0);
+  } catch (error) {
+    console.error("❌ An error occurred during the login process:", error);
+    process.exit(1);
+  } finally {
+    // Close the readline interface after the process is complete or an error occurs
+    rl.close();
+  }
+})();
