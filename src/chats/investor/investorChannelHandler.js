@@ -1,3 +1,8 @@
+// TODO: Refactor the TOS order string parsing logic into a separate library.
+// This will make the code more modular and easier to maintain.
+// The new library should handle all the parsing logic and return
+// the relevant information in a structured format.
+
 // Explicit order strategies for executing multi-leg options orders.
 const STRATEGIES = {
   IRON_CONDOR: "IRON_CONDOR",
