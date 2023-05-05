@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-const getN = (n) => (n ? n : "");
+const getN = (n) => n ?? "";
 
 function formatDate(expYear, expMonth, expDate) {
   return format(
@@ -11,9 +11,13 @@ function formatDate(expYear, expMonth, expDate) {
 }
 
 function getOrderType(order) {
-  const sell = ["SELL", "Sell", "sell"].includes(order) && "SELL";
-  const buy = ["BUY", "BOT", "Buy"].includes(order) && "BUY";
-  return sell || buy;
+  if (/^sell$/i.test(order)) {
+    return "SELL";
+  } else if (/^(buy|bot)$/i.test(order)) {
+    return "BUY";
+  } else {
+    return undefined;
+  }
 }
 
 function getPrice(whole, decimal) {

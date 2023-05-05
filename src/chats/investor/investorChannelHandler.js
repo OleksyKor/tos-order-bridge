@@ -1,57 +1,33 @@
-// Define the different order strategies that can be parsed from the order string
+// Explicit order strategies for executing multi-leg options orders.
 const STRATEGIES = {
-  IRON_CONDOR: "IRON CONDOR",
+  IRON_CONDOR: "IRON_CONDOR",
   CALENDAR: "CALENDAR",
   SINGLE: "SINGLE",
+  // COVERED: "COVERED",
+  // VERTICAL: "VERTICAL",
+  // BACK_RATIO: "BACK_RATIO",
+  // DIAGONAL: "DIAGONAL",
+  // STRADDLE: "STRADDLE",
+  // STRANGLE: "STRANGLE",
+  // COLLAR_SYNTHETIC: "COLLAR_SYNTHETIC",
+  // BUTTERFLY: "BUTTERFLY",
+  // CONDOR: "CONDOR",
+  // VERTICAL_ROLL: "VERTICAL_ROLL",
+  // COLLAR_WITH_STOCK: "COLLAR_WITH_STOCK",
+  // DOUBLE_DIAGONAL: "DOUBLE_DIAGONAL",
+  // UNBALANCED_BUTTERFLY: "UNBALANCED_BUTTERFLY",
+  // UNBALANCED_CONDOR: "UNBALANCED_CONDOR",
+  // UNBALANCED_IRON_CONDOR: "UNBALANCED_IRON_CONDOR",
+  // UNBALANCED_VERTICAL_ROLL: "UNBALANCED_VERTICAL_ROLL",
+  // CUSTOM: "CUSTOM",
 };
 
-// Map each strategy to its corresponding handler module
+// Map each parsing strategy to its corresponding handler module
 const handlers = {
   [STRATEGIES.IRON_CONDOR]: require("./handlers/ironCondorOrder"),
   [STRATEGIES.CALENDAR]: require("./handlers/calendarOrder"),
   [STRATEGIES.SINGLE]: require("./handlers/singleOrder").default,
 };
-
-// ComplexOrderStrategyType
-// Explicit order strategies for executing multi-leg options orders.
-// NONE = 'NONE'
-// No complex order strategy. This is the default.
-// COVERED = 'COVERED'
-// Covered call
-// VERTICAL = 'VERTICAL'
-// Vertical spread
-// BACK_RATIO = 'BACK_RATIO'
-// Ratio backspread
-// CALENDAR = 'CALENDAR'
-// Calendar spread
-// DIAGONAL = 'DIAGONAL'
-// Diagonal spread
-// STRADDLE = 'STRADDLE'
-// Straddle spread
-// STRANGLE = 'STRANGLE'
-// Strandle spread
-// COLLAR_SYNTHETIC = 'COLLAR_SYNTHETIC'
-// BUTTERFLY = 'BUTTERFLY'
-// Butterfly spread
-// 54 Chapter 6. OrderBuilder Reference
-// tda-api
-// CONDOR = 'CONDOR'
-// Condor spread
-// IRON_CONDOR = 'IRON_CONDOR'
-// Iron condor spread
-// VERTICAL_ROLL = 'VERTICAL_ROLL'
-// Roll a vertical spread
-// COLLAR_WITH_STOCK = 'COLLAR_WITH_STOCK'
-// Collar strategy
-// DOUBLE_DIAGONAL = 'DOUBLE_DIAGONAL'
-// Double diagonal spread
-// UNBALANCED_BUTTERFLY = 'UNBALANCED_BUTTERFLY'
-// Unbalanced butterfy spread
-// UNBALANCED_CONDOR = 'UNBALANCED_CONDOR'
-// UNBALANCED_IRON_CONDOR = 'UNBALANCED_IRON_CONDOR'
-// UNBALANCED_VERTICAL_ROLL = 'UNBALANCED_VERTICAL_ROLL'
-// CUSTOM = 'CUSTOM'
-// A custom multi-leg order strategy.
 
 /**
  * Parses an order string in the Thinkorswim format and returns an object with the relevant information.
@@ -143,18 +119,24 @@ function investorsChannelHandler(sock) {
     const messageLines = message.split("\n").map((s) => s.trim());
 
     let tosActionIndex = messageLines.findIndex((s) => s.startsWith("TOS:"));
-    
+
     // Find a valid TOS action
-    while (tosActionIndex < messageLines.length && !isValidTosAction(messageLines[tosActionIndex])) {
-        console.log("Invalid TOS action, searching next line:", messageLines[tosActionIndex]);
-        tosActionIndex++;
+    while (
+      tosActionIndex < messageLines.length &&
+      !isValidTosAction(messageLines[tosActionIndex])
+    ) {
+      console.log(
+        "Invalid TOS action, searching next line:",
+        messageLines[tosActionIndex]
+      );
+      tosActionIndex++;
     }
-    
+
     if (tosActionIndex === messageLines.length) {
-        console.log("No valid TOS action found, skipping...");
-        return;
+      console.log("No valid TOS action found, skipping...");
+      return;
     }
-    
+
     const tosAction = messageLines[tosActionIndex];
     console.log("Valid TOS action line found:", tosAction);
 
