@@ -1,4 +1,4 @@
-const { getOrderType, formatDate, getPrice, getN } = require('./utils');
+import { getOrderType, formatDate, getPrice, getN } from './utils';
 
 function handleIronCondorOrder(type, matches) {
   console.log(type, matches);
@@ -29,4 +29,4 @@ function handleIronCondorOrder(type, matches) {
   return strToSend;
 }
 
-module.exports = handleIronCondorOrder;
+export default handleIronCondorOrder;

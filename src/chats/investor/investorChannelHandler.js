@@ -29,8 +29,8 @@ const STRATEGIES = {
 
 // Map each parsing strategy to its corresponding handler module
 const handlers = {
-  [STRATEGIES.IRON_CONDOR]: require("./handlers/ironCondorOrder"),
-  [STRATEGIES.CALENDAR]: require("./handlers/calendarOrder"),
+  [STRATEGIES.IRON_CONDOR]: require("./handlers/ironCondorOrder").default,
+  [STRATEGIES.CALENDAR]: require("./handlers/calendarOrder").default,
   [STRATEGIES.SINGLE]: require("./handlers/singleOrder").default,
 };
 
